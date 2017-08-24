@@ -36,9 +36,7 @@ public class NotificationService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.e(TAG, "onStartCommand");
         super.onStartCommand(intent, flags, startId);
-
         startTimer();
-
         return START_STICKY;
     }
 
@@ -46,8 +44,6 @@ public class NotificationService extends Service {
     @Override
     public void onCreate() {
         Log.e(TAG, "onCreate");
-
-
     }
 
     @Override
