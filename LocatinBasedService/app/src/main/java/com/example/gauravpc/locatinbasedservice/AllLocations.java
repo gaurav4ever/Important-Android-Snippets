@@ -136,7 +136,7 @@ public class AllLocations extends AppCompatActivity {
             latTextView=(TextView)convertView.findViewById(R.id.lat);
             langTextView=(TextView)convertView.findViewById(R.id.lang);
 
-            addTextView.setText(upperFirst(mapModelList.get(position).getAdd()));
+            addTextView.setText(mapModelList.get(position).getAdd());
             latTextView.setText(mapModelList.get(position).getLat());
             langTextView.setText((mapModelList.get(position).getLang()));
 
@@ -145,19 +145,4 @@ public class AllLocations extends AppCompatActivity {
         }
 
     }
-    public String upperFirst(String val){
-        String final_answer="";
-        for(int i=0;i<val.length();i++){
-            if(i==0)
-                final_answer+=(String.valueOf(val.charAt(i))).toUpperCase();
-            else if(String.valueOf(val.charAt(i-1)).equals(" "))
-                final_answer+=(String.valueOf(val.charAt(i))).toUpperCase();
-            else if(!String.valueOf(val.charAt(i)).equals(" "))
-                final_answer+=(String.valueOf(val.charAt(i))).toLowerCase();
-            else
-                final_answer+=String.valueOf(val.charAt(i));
-        }
-        return final_answer;
-    }
-
 }
