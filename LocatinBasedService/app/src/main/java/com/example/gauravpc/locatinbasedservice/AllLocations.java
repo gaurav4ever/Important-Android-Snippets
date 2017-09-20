@@ -130,7 +130,6 @@ public class AllLocations extends AppCompatActivity {
             }
 
             TextView addTextView,latTextView,langTextView;
-            ImageView img;
 
             addTextView=(TextView)convertView.findViewById(R.id.address);
             latTextView=(TextView)convertView.findViewById(R.id.lat);
