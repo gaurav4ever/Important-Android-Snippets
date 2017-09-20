@@ -1,4 +1,4 @@
-package com.example.gauravpc.notificationmanagerusingalarmamanager;
+package com.example.gauravpc.locatinbasedservice;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
