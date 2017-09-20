@@ -45,7 +45,7 @@ public class AllLocations extends AppCompatActivity {
         setContentView(R.layout.activity_all_locations);
 
         pDialog = new ProgressDialog(AllLocations.this);
-        pDialog.setMessage("Please wait...");
+        pDialog.setMessage("Finding nearest location...");
         pDialog.setCancelable(false);
 
         listView=(ListView)findViewById(R.id.list);
