@@ -206,9 +206,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void postExecute(String kitchen_id,double minD,double lat,double lang,String add,String mobile){
-
-        SharedPreferences sharedPreferences=getSharedPreferences("userInfo", Context.MODE_APPEND);
-        SharedPreferences.Editor editor=sharedPreferences.edit();
+        
 
         if(minD==5000){
             responseTextView.setText("No location found");
