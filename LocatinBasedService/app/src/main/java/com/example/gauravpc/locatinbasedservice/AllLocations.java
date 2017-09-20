@@ -136,40 +136,10 @@ public class AllLocations extends AppCompatActivity {
             latTextView=(TextView)convertView.findViewById(R.id.lat);
             langTextView=(TextView)convertView.findViewById(R.id.lang);
 
-            addTextView.setText(upperFirst(mapModelList.get(position).getName()));
-            latTextView.setText(mapModelList.get(position).getPrice());
-            langTextView.setText((mapModelList.get(position).getProgram()));
+            addTextView.setText(upperFirst(mapModelList.get(position).getAdd()));
+            latTextView.setText(mapModelList.get(position).getLat());
+            langTextView.setText((mapModelList.get(position).getLang()));
 
-            img=(ImageView)convertView.findViewById(R.id.mealImg);
-            ImageLoader.getInstance().displayImage(favMealModelList.get(position).getImg(), img);
-
-            CardView cardView=(CardView)convertView.findViewById(R.id.view);
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(FavMeals.this, mealHandler.class);
-                    intent.putExtra("position", "position : " + position);
-                    intent.putExtra("id", favMealModelList.get(position).getId());
-                    intent.putExtra("arrayVal", "vegMeals");
-                    intent.putExtra("url", "https://dytila.herokuapp.com/api/dytilaMainMenu/nonveg");
-                    intent.putExtra("name", favMealModelList.get(position).getName());
-                    intent.putExtra("type", favMealModelList.get(position).getType());
-                    intent.putExtra("program", favMealModelList.get(position).getProgram());
-                    intent.putExtra("img", favMealModelList.get(position).getImg());
-                    intent.putExtra("protein", favMealModelList.get(position).getProtein());
-                    intent.putExtra("fats", favMealModelList.get(position).getFats());
-                    intent.putExtra("carbs", favMealModelList.get(position).getCarbs());
-                    intent.putExtra("calories", favMealModelList.get(position).getCalories());
-                    intent.putExtra("price", favMealModelList.get(position).getPrice());
-                    intent.putExtra("items_included", favMealModelList.get(position).getItems_included());
-                    intent.putExtra("fi",favMealModelList.get(position).getFi());
-                    intent.putExtra("description", favMealModelList.get(position).getDescription());
-                    intent.putExtra("status", favMealModelList.get(position).getStatus());
-                    intent.putExtra("status", favMealModelList.get(position).getStatus());
-                    intent.putExtra("isFav", favMealModelList.get(position).getIsFav());
-                    startActivity(intent);
-                }
-            });
 
             return convertView;
         }
