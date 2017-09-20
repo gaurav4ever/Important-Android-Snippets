@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="#f0f0f0"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,38 +11,57 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardElevation="0dp"
+        card_view:cardElevation="3dp"
         card_view:cardCornerRadius="0dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
+        android:layout_margin="5dp"
         >
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#000000"
-                android:text="Meal Name"
-                android:fontFamily="sans-serif"
-                android:id="@+id/mealName"
-                android:gravity="center"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:id="@+id/divider"
-                android:layout_below="@+id/mealName"
-                android:background="@android:color/darker_gray"/>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/divider"
-                android:id="@+id/priceLayout"
+                android:id="@+id/Layout1"
+                android:weightSum="1">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.25"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="ADDRESS"
+                    android:textColor="#000"
+                    android:textStyle="bold"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif-light"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.05"
+                    android:gravity="center"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text=":"
+                    android:textColor="#000"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif-light"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Address"
+                    android:id="@+id/address"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif-light"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Layout1"
+                android:id="@+id/Layout2"
                 android:layout_marginTop="5dp"
                 android:weightSum="1">
                 <TextView
@@ -49,7 +69,48 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.25"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Price"
+                    android:text="LATITUDE"
+                    android:textColor="#000"
+                    android:textStyle="bold"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif-light"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.05"
+                    android:gravity="center"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text=":"
+                    android:textColor="#000"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif-light"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="latitude"
+                    android:id="@+id/lat"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif-light"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Layout2"
+                android:id="@+id/Layout3"
+                android:layout_marginTop="5dp"
+                android:weightSum="1">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.25"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="LONGITUDE"
+                    android:textStyle="bold"
                     android:textColor="#000"
                     android:textSize="13sp"
                     android:fontFamily="sans-serif-light"
@@ -70,286 +131,12 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.7"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Price"
-                    android:id="@+id/price"
+                    android:text="Longitude"
+                    android:id="@+id/lang"
                     android:textSize="13sp"
                     android:fontFamily="sans-serif-light"
                     />
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/priceLayout"
-                android:id="@+id/Tmeal_freqLayout"
-                android:layout_marginTop="5dp"
-                android:weightSum="1">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.25"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Total Freq."
-                    android:textColor="#000"
-                    android:textSize="13sp"
-                    android:fontFamily="sans-serif-light"
-                    />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.05"
-                    android:gravity="center"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text=":"
-                    android:textColor="#000"
-                    android:textSize="13sp"
-                    android:fontFamily="sans-serif-light"
-                    />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Tmeal Freq."
-                    android:id="@+id/Tmeal_freq"
-                    android:textSize="13sp"
-                    android:fontFamily="sans-serif-light"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/Tmeal_freqLayout"
-                android:id="@+id/order_idLayout"
-                android:layout_marginTop="5dp"
-                android:weightSum="1">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.25"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Order Id"
-                    android:textColor="#000"
-                    android:textSize="13sp"
-                    android:fontFamily="sans-serif-light"
-                    />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.05"
-                    android:gravity="center"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text=":"
-                    android:textColor="#000"
-                    android:textSize="13sp"
-                    android:fontFamily="sans-serif-light"
-                    />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Order Id"
-                    android:id="@+id/id"
-                    android:textSize="13sp"
-                    android:fontFamily="sans-serif-light"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/order_idLayout"
-                android:id="@+id/meal_freqLayout"
-                android:layout_marginTop="5dp"
-                android:weightSum="1">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.25"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Freq. Left"
-                    android:textColor="#000"
-                    android:textSize="13sp"
-                    android:fontFamily="sans-serif-light"
-                    />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.05"
-                    android:gravity="center"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text=":"
-                    android:textColor="#000"
-                    android:textSize="13sp"
-                    android:fontFamily="sans-serif-light"
-                    />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Meal Freq. Left"
-                    android:id="@+id/meal_freq"
-                    android:textSize="13sp"
-                    android:fontFamily="sans-serif-light"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/meal_freqLayout"
-                android:id="@+id/locationLayout"
-                android:layout_marginTop="5dp"
-                android:weightSum="1">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.25"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Freq. Left"
-                    android:textColor="#000"
-                    android:textSize="13sp"
-                    android:fontFamily="sans-serif-light"
-                    />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.05"
-                    android:gravity="center"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text=":"
-                    android:textColor="#000"
-                    android:textSize="13sp"
-                    android:fontFamily="sans-serif-light"
-                    />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Pick Up Address"
-                    android:id="@+id/pickupAddress"
-                    android:textSize="13sp"
-                    android:fontFamily="sans-serif-light"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/locationLayout"
-                android:id="@+id/orderTimeLayout"
-                android:layout_marginTop="5dp"
-                android:weightSum="1">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.25"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Order Time"
-                    android:textColor="#000"
-                    android:textSize="13sp"
-                    android:fontFamily="sans-serif-light"
-                    />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.05"
-                    android:gravity="center"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text=":"
-                    android:textColor="#000"
-                    android:textSize="13sp"
-                    android:fontFamily="sans-serif-light"
-                    />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Timing"
-                    android:id="@+id/timing"
-                    android:textSize="13sp"
-                    android:fontFamily="sans-serif-light"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/orderTimeLayout"
-                android:id="@+id/addonsLayout"
-                android:layout_marginTop="5dp"
-                android:weightSum="1">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.25"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Addons"
-                    android:textColor="#000"
-                    android:textSize="13sp"
-                    android:fontFamily="sans-serif-light"
-                    />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.05"
-                    android:gravity="center"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text=":"
-                    android:textColor="#000"
-                    android:textSize="13sp"
-                    android:fontFamily="sans-serif-light"
-                    />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Addons"
-                    android:id="@+id/addons"
-                    android:textSize="13sp"
-                    android:fontFamily="sans-serif-light"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/addonsLayout"
-                android:id="@+id/overLayout"
-                android:layout_marginTop="5dp"
-                android:weightSum="1">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.25"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Plan Over"
-                    android:textColor="#000"
-                    android:textSize="13sp"
-                    android:fontFamily="sans-serif-light"
-                    />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.05"
-                    android:gravity="center"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text=":"
-                    android:textColor="#000"
-                    android:textSize="13sp"
-                    android:fontFamily="sans-serif-light"
-                    />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="over"
-                    android:id="@+id/over"
-                    android:textSize="13sp"
-                    android:fontFamily="sans-serif-light"
-                    />
-            </LinearLayout>
-
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
