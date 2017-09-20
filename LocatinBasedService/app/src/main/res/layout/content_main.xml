@@ -111,6 +111,47 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/Layout3"
+            android:id="@+id/Layout4"
+            android:layout_marginTop="5dp"
+            android:weightSum="1">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="DISTANCE"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:textSize="13sp"
+                android:fontFamily="sans-serif-light"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.05"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text=":"
+                android:textColor="#000"
+                android:textSize="13sp"
+                android:fontFamily="sans-serif-light"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="0 M"
+                android:id="@+id/distance"
+                android:textSize="13sp"
+                android:textColor="#000"
+                android:fontFamily="sans-serif-light"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/Layout2"
             android:id="@+id/Layout3"
             android:layout_marginTop="5dp"

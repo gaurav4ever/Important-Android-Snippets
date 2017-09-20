@@ -53,19 +53,20 @@ public class MainActivity extends AppCompatActivity {
     MyLocListener myLocListener;
     List<MapModel> mapModelList=new ArrayList<>();
 
-    TextView responseTextView,buttonTextView,addTextView,latTextView,langTextView;
+    TextView responseTextView,buttonTextView,addTextView,latTextView,langTextView,distanceTextView;
     Button allLocationButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+
         buttonTextView=(TextView)findViewById(R.id.button);
 
         addTextView=(TextView)findViewById(R.id.address);
         latTextView=(TextView)findViewById(R.id.lat);
         langTextView=(TextView)findViewById(R.id.lang);
+        distanceTextView=(TextView)findViewById(R.id.distance);
 
         buttonTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -218,6 +219,7 @@ public class MainActivity extends AppCompatActivity {
             addTextView.setText(add);
             latTextView.setText(lat+"");
             langTextView.setText(lang+"");
+            distanceTextView.setText(minD+" m");
         }
     }
     //End functions
