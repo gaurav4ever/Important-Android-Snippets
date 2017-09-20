@@ -36,6 +36,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -56,6 +57,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        responseTextView=(TextView)findViewById(R.id.reponseText);
+        buttonTextView=(TextView)findViewById(R.id.button);
+
+        buttonTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                findDytilaKitchen();
+            }
+        });
     }
 
     //functions to find nearest dytila kitchens
@@ -188,10 +199,10 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor=sharedPreferences.edit();
 
         if(minD==5000){
-
+            responseTextView.setText("No location found");
         }
         else{
-
+            responseTextView.setText("Latitude : "+lat+"\nLongitude : "+lang+"\nAddress : "+add);
         }
     }
     //End functions
