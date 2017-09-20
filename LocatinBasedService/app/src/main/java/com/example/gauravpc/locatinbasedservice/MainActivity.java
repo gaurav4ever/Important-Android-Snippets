@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
             responseTextView.setText("No location found");
         }
         else{
-            responseTextView.setText("Latitude : "+lat+"\nLongitude : "+lang+"\nAddress : "+add);
+            responseTextView.setText("Distance :"+minD+"\nLatitude : "+lat+"\nLongitude : "+lang+"\nAddress : "+add);
         }
     }
     //End functions
