@@ -41,6 +41,7 @@
         android:layout_height="wrap_content"
         android:text="All locations"
         android:layout_centerHorizontal="true"
+        android:id="@+id/allLoc"
         android:layout_above="@+id/button"
         android:layout_margin="10dp"/>
 

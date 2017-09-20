@@ -17,10 +17,12 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.text.AllCapsTransformationMethod;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     List<MapModel> mapModelList=new ArrayList<>();
 
     TextView responseTextView,buttonTextView;
+    Button allLocationButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 findDytilaKitchen();
+            }
+        });
+
+        allLocationButton=(Button)findViewById(R.id.allLoc);
+        allLocationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this, AllLocations.class);
+                startActivity(intent);
             }
         });
     }
