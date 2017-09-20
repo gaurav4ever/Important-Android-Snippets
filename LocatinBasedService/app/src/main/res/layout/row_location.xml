@@ -11,7 +11,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardElevation="3dp"
+        card_view:cardElevation="1dp"
         card_view:cardCornerRadius="2dp"
         android:background="#fff"
         android:layout_margin="5dp"
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/Layout1"
                 android:id="@+id/Layout2"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:weightSum="1">
                 <TextView
                     android:layout_width="0dp"
@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/Layout2"
                 android:id="@+id/Layout3"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:weightSum="1">
                 <TextView
                     android:layout_width="0dp"
