@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     MyLocListener myLocListener;
     List<MapModel> mapModelList=new ArrayList<>();
 
-    TextView responseTextView,buttonTextView;
+    TextView responseTextView,buttonTextView,addTextView,latTextView,langTextView;
     Button allLocationButton;
 
     @Override
@@ -63,6 +63,10 @@ public class MainActivity extends AppCompatActivity {
 
         responseTextView=(TextView)findViewById(R.id.reponseText);
         buttonTextView=(TextView)findViewById(R.id.button);
+
+        addTextView=(TextView)findViewById(R.id.address);
+        latTextView=(TextView)findViewById(R.id.lat);
+        langTextView=(TextView)findViewById(R.id.lang);
 
         buttonTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,7 +210,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void postExecute(String kitchen_id,double minD,double lat,double lang,String add,String mobile){
-        
 
         if(minD==5000){
             responseTextView.setText("No location found");
