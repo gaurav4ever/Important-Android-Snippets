@@ -60,8 +60,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        responseTextView=(TextView)findViewById(R.id.reponseText);
+        
         buttonTextView=(TextView)findViewById(R.id.button);
 
         addTextView=(TextView)findViewById(R.id.address);
