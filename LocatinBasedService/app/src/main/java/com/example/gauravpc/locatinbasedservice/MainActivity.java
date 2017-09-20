@@ -26,6 +26,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-
-
 
     //functions to find nearest dytila kitchens
     public void findDytilaKitchen(){
@@ -182,51 +186,10 @@ public class MainActivity extends AppCompatActivity {
 
         if(minD==5000){
 
-            //change the heart image to broken heart
-            ImageView imageView=(ImageView)findViewById(R.id.myKitchen);
-            imageView.setImageResource(R.drawable.bheart);
-
-            editor.putString("mKitchen", "unavailable");
-            final Dialog dialog = new Dialog(MainActivity.this);
-            dialog.setContentView(R.layout.can_order_layout);
-            TextView close = (TextView) dialog.findViewById(R.id.close);
-            close.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
-            dialog.show();
         }
         else{
 
-            //change the broken heart image to heart
-            ImageView imageView=(ImageView)findViewById(R.id.myKitchen);
-            imageView.setImageResource(R.drawable.heart);
-
-            editor.putString("mKitchen", lat+":"+lang+":"+add+":"+mobile+":"+kitchen_id);
-
-            String full_address_of_kitchen="Address:\n"+add;
-
-            final Dialog dialog = new Dialog(MainActivity.this);
-            dialog.setContentView(R.layout.cannot_order_layout);
-
-            TextView close = (TextView) dialog.findViewById(R.id.close);
-            close.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
-
-            TextView addressText=(TextView) dialog.findViewById(R.id.address);
-            addressText.setText(full_address_of_kitchen);
-
-            TextView mobileText=(TextView)dialog.findViewById(R.id.mobile);
-            mobileText.setText(mobile);
-            dialog.show();
         }
-        editor.commit();
     }
     //End functions
 }
