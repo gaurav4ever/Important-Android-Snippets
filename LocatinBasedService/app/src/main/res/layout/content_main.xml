@@ -18,6 +18,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="#fff"
+        android:id="@+id/t1"
         android:background="@color/colorPrimary"
         />
 
@@ -26,14 +27,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Response"
-        android:layout_centerInParent="true"
+        android:layout_below="@+id/t1"
         android:gravity="center"
         android:padding="20dp"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:id="@+id/reponseText"
         android:textStyle="bold"
         android:textColor="#000"
         />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="All locations"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/button"
+        android:layout_margin="10dp"/>
+
 
     <TextView
         android:layout_width="match_parent"

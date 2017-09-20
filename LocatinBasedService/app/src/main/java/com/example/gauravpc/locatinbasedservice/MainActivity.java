@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             }
             if (off == 0) {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-                alertDialogBuilder.setMessage("We are unable to find any Dytila Kitchen near you because GPS is OFF... would you like to enable it ?");
+                alertDialogBuilder.setMessage("We are unable to find any location near you because GPS is OFF... would you like to enable it ?");
                 alertDialogBuilder.setPositiveButton("Yes",
                         new DialogInterface.OnClickListener() {
                             @Override
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         final String[] mobile = new String[1];
         String url="https://dytila.herokuapp.com/api/places_kitchens";
         pDialog = new ProgressDialog(MainActivity.this);
-        pDialog.setMessage("Finding Nearest Dytila Kitchen...");
+        pDialog.setMessage("Finding Nearest location...");
         pDialog.setCancelable(false);
 
         pDialog.show();
@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
             responseTextView.setText("No location found");
         }
         else{
-            responseTextView.setText("Distance :"+minD+"\nLatitude : "+lat+"\nLongitude : "+lang+"\nAddress : "+add);
+            responseTextView.setText("Distance :"+minD+"m\nLatitude : "+lat+"\nLongitude : "+lang+"\nAddress : "+add);
         }
     }
     //End functions
