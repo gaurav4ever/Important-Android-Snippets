@@ -112,14 +112,14 @@ public class AllLocations extends AppCompatActivity {
         listView.setAdapter(favMealModelAdapter);
     }
     class FavMealModelAdapter extends ArrayAdapter {
-        public List<MapModel> favMealModelList;
+        public List<MapModel> mapModelList;
         private int resource;
 
         private LayoutInflater inflater;
 
         public FavMealModelAdapter(Context context, int resource, List<MapModel> objects) {
             super(context, resource, objects);
-            favMealModelList=objects;
+            mapModelList=objects;
             this.resource=resource;
             inflater=(LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
@@ -132,13 +132,13 @@ public class AllLocations extends AppCompatActivity {
             TextView addTextView,latTextView,langTextView;
             ImageView img;
 
-            addTextView=(TextView)convertView.findViewById(R.id.mealName);
-            latTextView=(TextView)convertView.findViewById(R.id.price);
-            langTextView=(TextView)convertView.findViewById(R.id.program);
+            addTextView=(TextView)convertView.findViewById(R.id.address);
+            latTextView=(TextView)convertView.findViewById(R.id.lat);
+            langTextView=(TextView)convertView.findViewById(R.id.lang);
 
-            mealName.setText(upperFirst(favMealModelList.get(position).getName()));
-            mealPrice.setText(favMealModelList.get(position).getPrice());
-            mealProgram.setText((favMealModelList.get(position).getProgram()));
+            addTextView.setText(upperFirst(mapModelList.get(position).getName()));
+            latTextView.setText(mapModelList.get(position).getPrice());
+            langTextView.setText((mapModelList.get(position).getProgram()));
 
             img=(ImageView)convertView.findViewById(R.id.mealImg);
             ImageLoader.getInstance().displayImage(favMealModelList.get(position).getImg(), img);
