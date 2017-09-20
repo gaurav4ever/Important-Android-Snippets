@@ -31,6 +31,91 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/mLayout1"
+            android:weightSum="1">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="My Lat"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:fontFamily="sans-serif-light"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.05"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text=":"
+                android:textColor="#000"
+                android:textSize="13sp"
+                android:fontFamily="sans-serif-light"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="My lat"
+                android:id="@+id/mlat"
+                android:textColor="#000"
+                android:textSize="13sp"
+                android:fontFamily="sans-serif-light"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mLayout1"
+            android:id="@+id/mLayout2"
+            android:weightSum="1">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="My Lang"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:fontFamily="sans-serif-light"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.05"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text=":"
+                android:textColor="#000"
+                android:textSize="13sp"
+                android:fontFamily="sans-serif-light"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="My lang"
+                android:id="@+id/mlang"
+                android:textColor="#000"
+                android:textSize="13sp"
+                android:fontFamily="sans-serif-light"
+                />
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mLayout2"
+            android:layout_marginTop="20dp"
             android:id="@+id/Layout1"
             android:weightSum="1">
             <TextView

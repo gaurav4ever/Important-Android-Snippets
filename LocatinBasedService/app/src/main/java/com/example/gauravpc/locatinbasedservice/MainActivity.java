@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     MyLocListener myLocListener;
     List<MapModel> mapModelList=new ArrayList<>();
 
-    TextView responseTextView,buttonTextView,addTextView,latTextView,langTextView,distanceTextView;
+    TextView responseTextView,buttonTextView,addTextView,latTextView,langTextView,distanceTextView,mLangTextView,mLatTextView;
     Button allLocationButton;
 
     @Override
@@ -67,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
         latTextView=(TextView)findViewById(R.id.lat);
         langTextView=(TextView)findViewById(R.id.lang);
         distanceTextView=(TextView)findViewById(R.id.distance);
+        mLatTextView=(TextView)findViewById(R.id.mlat);
+        mLangTextView=(TextView)findViewById(R.id.mlang);
 
         buttonTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -215,6 +217,10 @@ public class MainActivity extends AppCompatActivity {
             responseTextView.setText("No location found");
         }
         else{
+
+            mLatTextView.setText(myLat+"");
+            mLangTextView.setText(myLang+"");
+
             addTextView.setText(add);
             latTextView.setText(lat+"");
             langTextView.setText(lang+"");
