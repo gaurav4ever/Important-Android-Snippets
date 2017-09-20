@@ -76,7 +76,7 @@ public class AllLocations extends AppCompatActivity {
                 try {
 
                     List<MapModel> mapModelArrayList=new ArrayList<>();
-                    JSONArray parentArray=response.getJSONArray("meals");
+                    JSONArray parentArray=response.getJSONArray("kitchens");
 
                     for(int i=0;i<parentArray.length();i++){
                         JSONObject finalObject=parentArray.getJSONObject(i);
