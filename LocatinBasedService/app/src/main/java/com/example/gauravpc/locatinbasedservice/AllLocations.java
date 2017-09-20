@@ -1,5 +1,6 @@
 package com.example.gauravpc.locatinbasedservice;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,10 +10,16 @@ import android.view.View;
 
 public class AllLocations extends AppCompatActivity {
 
+    private ProgressDialog pDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_locations);
+
+        pDialog = new ProgressDialog(FavMeals.this);
+        pDialog.setMessage("Please wait...");
+        pDialog.setCancelable(false);
 
     }
 
