@@ -15,7 +15,7 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity {
 
     TextView textView;
-
+    String encryptText,decryptText;
     // Used to load the 'native-lib' library on application startup.
     static {
         System.loadLibrary("native-lib");
@@ -34,8 +34,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String datain=editText.getText().toString();
-                String eText=stringFromJNI(datain);
+                String eText=encryptText=stringFromJNI(datain,0);
                 textView.setText("Encrypted Data : \n\n"+eText);
+            }
+        });
+        Button button2=(Button)findViewById(R.id.go2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String dText=stringFromJNI(encryptText,1);
+                textView.setText("Encrypted Data : \n\n"+dText);
             }
         });
     }
@@ -67,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      * A native method that is implemented by the 'native-lib' native library,
      * which is packaged with this application.
+     * @param datain
+     * @param i
      */
-    public native String stringFromJNI();
+    public native String stringFromJNI(String datain, int i);
 }

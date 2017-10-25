@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         progressDialog = new ProgressDialog(MainActivity.this);
-        progressDialog.setMessage("Restoring data...");
+        progressDialog.setMessage("Syncing data...");
         progressDialog.setCancelable(false);
 
         sendImg=(ImageView) findViewById(R.id.sendmsg);
@@ -82,12 +83,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 itemTextView=(EditText)findViewById(R.id.text);
-                String msg=itemTextView.getText().toString();
-//                tv.setText(msg);
+                String emsg=stringFromJNI(itemTextView.getText().toString(),0);
                 DateFormat df = new SimpleDateFormat("dd/MM/yy hh:mm:ss a");
                 Date date = new Date();
                 String noteDate=df.format(date);
-                sendMessage(msg,noteDate);
+                sendMessage(emsg,noteDate);
             }
         });
         imageView=(ImageView)findViewById(R.id.sync);
@@ -98,9 +98,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         makeList();
-//        msg=itemTextView.getText().toString();
-//        String s=stringFromJNI(msg);
-
     }
     public void syncData(){
         final DatabaseHandler db=new DatabaseHandler(getApplicationContext());
@@ -125,12 +122,9 @@ public class MainActivity extends AppCompatActivity {
                             for(int i=0;i<msgArray.length();i++){
                                 JSONObject o = msgArray.getJSONObject(i);
                                 ContentValues contentValues=new ContentValues();
-//                                contentValues.put("id",Integer.parseInt(o.getString("id")));
                                 contentValues.put("from_user",o.getString("from"));
                                 contentValues.put("to_user",o.getString("to"));
-                                contentValues.put("original_msg",o.getString("msg"));
-                                contentValues.put("encrpt_key","ek");
-                                contentValues.put("encrpt_msg","ek***"+o.getString("msg"));
+                                contentValues.put("encrpt_msg",o.getString("msg"));
                                 contentValues.put("date",o.getString("date"));
                                 // Inserting Row
                                 sql_db.insert("msg", null, contentValues);
@@ -153,14 +147,15 @@ public class MainActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    public void sendMessage(final String msg,final String noteDate){
+    public void sendMessage(final String emsg,final String noteDate){
         String url="https://buckupapp.herokuapp.com/mobile/data";
         RequestQueue requestQueue=new Volley().newRequestQueue(getApplicationContext());
         StringRequest stringRequest=new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        db.addMsg(new MsgModel("prem","gaurav",msg,"key","e***"+msg,noteDate));
+                        db.addMsg(new MsgModel("gaurav","prem",emsg,noteDate));
+                        itemTextView.setText("");
                         makeList();
                     }
                 }, new Response.ErrorListener() {
@@ -173,8 +168,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params=new HashMap<String,String>();
-                params.put("user","prem");
-                params.put("msg",msg);
+                params.put("user","gaurav");
+                params.put("msg",emsg);
                 params.put("date",noteDate);
                 return params;
             }
@@ -216,8 +211,10 @@ public class MainActivity extends AppCompatActivity {
     /**
      * A native method that is implemented by the 'native-lib' native library,
      * which is packaged with this application.
+     * @param s
+     * @param i
      */
-    public native String stringFromJNI();
+    public native String stringFromJNI(String s, int i);
 
     // Used to load the 'native-lib' library on application startup.
     static {
@@ -250,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
 
         class ViewHolder{
             TextView username;
-            TextView msg;
+            TextView dmsg;
             TextView date;
             CardView cardView;
         }
@@ -263,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
                 convertView=inflater.inflate(R.layout.row_msg,null);
                 viewHolder =new ViewHolder();
                 viewHolder.username=(TextView)convertView.findViewById(R.id.by);
-                viewHolder.msg=(TextView)convertView.findViewById(R.id.msg);
+                viewHolder.dmsg=(TextView)convertView.findViewById(R.id.msg);
                 viewHolder.date=(TextView)convertView.findViewById(R.id.date);
                 viewHolder.cardView=(CardView)convertView.findViewById(R.id.msgCard);
                 convertView.setTag(viewHolder);
@@ -271,7 +268,12 @@ public class MainActivity extends AppCompatActivity {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
             viewHolder.username.setText(msgModelList.get(position).getFrom());
-            viewHolder.msg.setText(msgModelList.get(position).getOmsg());
+            if(msgModelList.get(position).getFrom().equals("prem")){
+                viewHolder.username.setTextColor(Color.parseColor("#ab0303"));
+            }else{
+                viewHolder.username.setTextColor(Color.parseColor("#303F9F"));
+            }
+            viewHolder.dmsg.setText(stringFromJNI(msgModelList.get(position).getEmsg(),1));
             String date=parseDate(msgModelList.get(position).getDate());
             viewHolder.date.setText(date);
 

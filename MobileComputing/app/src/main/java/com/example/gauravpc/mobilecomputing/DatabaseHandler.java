@@ -21,8 +21,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_ID = "id";
     private static final String sent_by = "from_user";
     private static final String sent_to = "to_user";
-    private static final String original_msg = "original_msg";
-    private static final String encrpt_key = "encrpt_key";
     private static final String encrpt_msg = "encrpt_msg";
     private static final String date = "date";
 
@@ -37,8 +35,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_ID + " INTEGER PRIMARY KEY,"
                 + sent_by + " TEXT,"
                 + sent_to + " TEXT,"
-                + original_msg + " TEXT,"
-                + encrpt_key + " TEXT,"
                 + encrpt_msg + " TEXT,"
                 + date + " TEXT)";
         db.execSQL(CREATE_TABLE);
@@ -55,8 +51,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues contentValues=new ContentValues();
         contentValues.put(sent_by,msgModel.getFrom());
         contentValues.put(sent_to,msgModel.getTo());
-        contentValues.put(original_msg,msgModel.getOmsg());
-        contentValues.put(encrpt_key,msgModel.getEk());
         contentValues.put(encrpt_msg,msgModel.getEmsg());
         contentValues.put(date,msgModel.getDate());
         db.insert(TABLE_msg,null,contentValues);
@@ -64,7 +58,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
     public ArrayList<MsgModel> viewMsg(){
         ArrayList<MsgModel> modelArrayList=new ArrayList<MsgModel>();
-        String sq="SELECT * FROM "+TABLE_msg+" ORDER BY date("+date+") DESC";
+        String sq="SELECT * FROM "+TABLE_msg+" ORDER BY date("+date+") ASC";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(sq, null);
         if(cursor.moveToFirst()) {
@@ -73,10 +67,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 msgModel.setId(cursor.getString(0));
                 msgModel.setFrom(cursor.getString(1));
                 msgModel.setTo(cursor.getString(2));
-                msgModel.setOmsg(cursor.getString(3));
-                msgModel.setEk(cursor.getString(4));
-                msgModel.setEmsg(cursor.getString(5));
-                msgModel.setDate(cursor.getString(6));
+                msgModel.setEmsg(cursor.getString(3));
+                msgModel.setDate(cursor.getString(4));
                 modelArrayList.add(msgModel);
             }while(cursor.moveToNext());
         }

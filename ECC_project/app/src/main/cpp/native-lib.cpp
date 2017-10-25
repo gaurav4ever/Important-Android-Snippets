@@ -1,7 +1,7 @@
 #include <jni.h>
-#include <string>
 #include <bits/stdc++.h>
-#include <stdlib.h>
+#include <string>
+#include <cstring>
 
 using namespace std;
 
@@ -170,7 +170,8 @@ pair <int,int> receiver_decryption(pair <int,int> C2){
 
 extern "C"
 JNIEXPORT jstring JNICALL
-Java_com_example_gauravpc_ecc_1project_MainActivity_stringFromJNI(JNIEnv *env, jobject /* this */,jstring msg) {
+
+Java_com_example_gauravpc_ecc_1project_MainActivity_stringFromJNI(JNIEnv *env, jobject /* this */,jstring msg,int flag) {
     std::string hello = "Hello from C++";
 
     int i,j;
@@ -214,8 +215,10 @@ Java_com_example_gauravpc_ecc_1project_MainActivity_stringFromJNI(JNIEnv *env, j
     map <char, pair <int,int> > :: iterator mit;
     map <pair <int,int>, char> :: iterator mit1;
 
+    string data;
 
-//    Jstring to C++ String
+
+    //    Jstring to C++ String
     if (!msg)
         return NULL;
     const jclass stringClass = env->GetObjectClass(msg);
@@ -224,36 +227,66 @@ Java_com_example_gauravpc_ecc_1project_MainActivity_stringFromJNI(JNIEnv *env, j
     size_t length = (size_t) env->GetArrayLength(stringJbytes);
     jbyte* pBytes = env->GetByteArrayElements(stringJbytes, NULL);
     std::string ret = std::string((char *)pBytes, length);
-//    End converting
-
-    std::cout<<ret;
+    //    End converting
     int l=ret.length();
 
-    i=0;
-    vector < pair<int,int> > send_encrypt_mssg;
-    while(i<l){
-        mit=m.find(ret[i++]);
-        M=make_pair((mit->second.first+mit->second.second)/2,(mit->second.first-mit->second.second)/2);
-        C2=sender_encryption(M);
-        send_encrypt_mssg.push_back(C2); //vector encrypted data
+
+    if(flag==0){
+//       ************************************ Encrypt algo ************************************
+
+        i=0;
+        vector < pair<int,int> > send_encrypt_mssg;
+        while(i<l){
+            mit=m.find(ret[i++]);
+            M=make_pair((mit->second.first+mit->second.second)/2,(mit->second.first-mit->second.second)/2);
+            C2=sender_encryption(M);
+            send_encrypt_mssg.push_back(C2); //vector encrypted data
+        }
+        int size=send_encrypt_mssg.size();
+        for(int i=0;i<size;i++){
+            stringstream ss1,ss2;
+
+            ss1<< send_encrypt_mssg[i].first;
+            string str1= ss1.str();
+
+            data+=str1;
+            data+=" ";
+
+            ss2<< send_encrypt_mssg[i].second;
+            string str2 = ss2.str();
+            data+=str2;
+
+            data+=" ";
+        }
+
+
+    }else if(flag==1){
+//       ************************************ Decrypt algo ************************************
+        int a[l],inc=0;
+        vector < pair<int,int> > receiv_decrypt_mssg;
+
+        std::stringstream ss(ret);
+        for(int i = 0; ss >> i; ) {
+            a[inc++]=i;
+        }
+        for(int i=0;i<inc;i+=2){
+            receiv_decrypt_mssg.push_back( make_pair (a[i],a[i+1]) );
+        }
+
+        int i=0;
+        string outstr;
+        while(i<receiv_decrypt_mssg.size()){
+
+            C2=receiv_decrypt_mssg[i++];
+
+            RM=receiver_decryption(C2);
+
+            mit1=m1.find(make_pair(RM.first+RM.second, RM.first-RM.second));
+
+            outstr+=mit1->second;
+        }
+        data=outstr;
     }
 
-    string data;
-    int size=send_encrypt_mssg.size();
-    for(int i=0;i<size;i++){
-        stringstream ss1,ss2;
-
-        ss1<< send_encrypt_mssg[i].first;
-        string str1= ss1.str();
-
-        data+=str1;
-        data+=",";
-
-        ss2<< send_encrypt_mssg[i].second;
-        string str2 = ss2.str();
-        data+=str2;
-
-        data+="\n";
-    }
     return env->NewStringUTF(data.c_str());
 }

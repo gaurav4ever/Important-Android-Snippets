@@ -35,6 +35,19 @@
                 android:text="EText"
                 android:padding="10dp"
                 android:id="@+id/dataout"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Decrypt"
+                android:layout_margin="20dp"
+                android:id="@+id/go2"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="EText"
+                android:padding="10dp"
+                android:id="@+id/dataout2"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
