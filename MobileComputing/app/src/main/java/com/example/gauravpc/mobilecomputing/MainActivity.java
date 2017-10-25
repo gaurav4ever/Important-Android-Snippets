@@ -34,8 +34,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 itemTextView=(EditText)findViewById(R.id.text);
                 String msg=itemTextView.getText().toString();
 //                tv.setText(msg);
-                DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                DateFormat df = new SimpleDateFormat("dd/MM/yy hh:mm:ss a");
                 Date date = new Date();
                 String noteDate=df.format(date);
                 sendMessage(msg,noteDate);
@@ -196,8 +198,44 @@ public class MainActivity extends AppCompatActivity {
             }
             viewHolder.username.setText(msgModelList.get(position).getFrom());
             viewHolder.msg.setText(msgModelList.get(position).getOmsg());
-            viewHolder.date.setText(msgModelList.get(position).getDate());
+            String date=parseDate(msgModelList.get(position).getDate());
+            DateFormat df = new SimpleDateFormat("dd/MM/yy hh:mm:ss a");
+            DateFormat df_time = new SimpleDateFormat("HH:mm:ss");
+            Date datee = new Date();
+            String noteDate=parseDate(df.format(datee));
+            String time=df_time.format(datee);
+            viewHolder.date.setText(date+" @"+time);
             return convertView;
+        }
+    }
+    public String parseDate(String date){
+        DateFormat df = new SimpleDateFormat("dd/MM/yy hh:mm:ss a");
+        SimpleDateFormat month_date = new SimpleDateFormat("MMM");
+        Date fetchedDate = null;
+        try {
+            fetchedDate = df.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(fetchedDate);
+        String day_now= ""+cal.get(Calendar.DAY_OF_MONTH);
+        String day_now_ordinal=ordinal(cal.get(Calendar.DAY_OF_MONTH));
+        String month_now = month_date.format(cal.getTime())+"";
+        String year_now= String.valueOf(cal.get(Calendar.YEAR));
+
+        return day_now+""+day_now_ordinal+" "+month_now+" "+year_now;
+    }
+    public static String ordinal(int i) {
+        String[] suffixes = new String[] { "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
+        switch (i % 100) {
+            case 11:
+            case 12:
+            case 13:
+                return "th";
+            default:
+                return suffixes[i % 10];
+
         }
     }
 }
