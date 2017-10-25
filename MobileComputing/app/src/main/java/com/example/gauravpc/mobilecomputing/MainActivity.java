@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
                             JSONObject notesObject=jsonObject.getJSONObject("data");
                             JSONArray msgArray = notesObject.getJSONArray("msg_data");
+                            
                             DatabaseHandler db=new DatabaseHandler(getApplicationContext());
                             SQLiteDatabase sql_db = db.getWritableDatabase();
 
@@ -122,12 +123,12 @@ public class MainActivity extends AppCompatActivity {
                             for(int i=0;i<msgArray.length();i++){
                                 JSONObject o = msgArray.getJSONObject(i);
                                 ContentValues contentValues=new ContentValues();
-                                contentValues.put("id",Integer.parseInt(o.getString("id")));
+//                                contentValues.put("id",Integer.parseInt(o.getString("id")));
                                 contentValues.put("from_user",o.getString("from"));
                                 contentValues.put("to_user",o.getString("to"));
                                 contentValues.put("original_msg",o.getString("msg"));
-                                contentValues.put("encrpt_key",o.getString("ek"));
-                                contentValues.put("encrpt_msg",o.getString("emsg"));
+                                contentValues.put("encrpt_key","ek");
+                                contentValues.put("encrpt_msg","ek***"+o.getString("msg"));
                                 contentValues.put("date",o.getString("date"));
                                 // Inserting Row
                                 sql_db.insert("msg", null, contentValues);
