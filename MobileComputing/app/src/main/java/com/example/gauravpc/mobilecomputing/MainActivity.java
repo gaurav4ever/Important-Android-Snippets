@@ -1,5 +1,6 @@
 package com.example.gauravpc.mobilecomputing;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -180,11 +181,12 @@ public class MainActivity extends AppCompatActivity {
             TextView username;
             TextView msg;
             TextView date;
+            CardView cardView;
         }
 
         @NonNull
         @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             ViewHolder viewHolder;
             if(convertView==null){
                 convertView=inflater.inflate(R.layout.row_msg,null);
@@ -192,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
                 viewHolder.username=(TextView)convertView.findViewById(R.id.by);
                 viewHolder.msg=(TextView)convertView.findViewById(R.id.msg);
                 viewHolder.date=(TextView)convertView.findViewById(R.id.date);
+                viewHolder.cardView=(CardView)convertView.findViewById(R.id.msgCard);
                 convertView.setTag(viewHolder);
             }else{
                 viewHolder = (ViewHolder) convertView.getTag();
@@ -205,6 +208,19 @@ public class MainActivity extends AppCompatActivity {
             String noteDate=parseDate(df.format(datee));
             String time=df_time.format(datee);
             viewHolder.date.setText(date+" @"+time);
+
+            viewHolder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    final Dialog dialog = new Dialog(MainActivity.this);
+                    dialog.setContentView(R.layout.layout_extra_text);
+                    TextView t2=(TextView)dialog.findViewById(R.id.t4);
+                    t2.setText(msgModelList.get(position).getEmsg());
+                    dialog.show();
+                    return false;
+                }
+            });
+
             return convertView;
         }
     }
