@@ -1,10 +1,18 @@
 package com.example.gauravpc.mobilecomputing;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.CardView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.support.design.widget.FloatingActionButton;
@@ -15,9 +23,22 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
     String msg;
     ImageView sendImg;
     EditText itemTextView;
+    DatabaseHandler db = new DatabaseHandler(MainActivity.this);
+    ListView listView;
+    MsgAdapter msgAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         final TextView tv = (TextView) findViewById(R.id.result);
         sendImg=(ImageView) findViewById(R.id.sendmsg);
+        listView=(ListView)findViewById(R.id.listView);
 
         sendImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,12 +66,53 @@ public class MainActivity extends AppCompatActivity {
                 itemTextView=(EditText)findViewById(R.id.text);
                 String msg=itemTextView.getText().toString();
                 tv.setText(msg);
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date = new Date();
+                String noteDate=df.format(date);
+                sendMessage(msg,noteDate);
+
             }
         });
+
+        ArrayList<MsgModel> msgModelList=db.viewMsg();
+        msgAdapter=new MsgAdapter(getApplicationContext(),R.layout.row_msg,msgModelList);
+        listView.setAdapter(msgAdapter);
+
 
 //        msg=itemTextView.getText().toString();
 //        String s=stringFromJNI(msg);
 
+    }
+
+    public void sendMessage(final String msg,final String noteDate){
+        String url="https://buckupapp.herokuapp.com/mobile/data";
+        RequestQueue requestQueue=new Volley().newRequestQueue(getApplicationContext());
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        db.addMsg(new MsgModel("gaurav","prem",msg,"key","e***"+msg,noteDate));
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("status","failed");
+                Log.d("error",""+error);
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params=new HashMap<String,String>();
+                params.put("user","gaurav");
+                params.put("msg",msg);
+                params.put("date",noteDate);
+                return params;
+            }
+        };
+        int socketTimeout = 10000;//30 seconds
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        stringRequest.setRetryPolicy(policy);
+        requestQueue.add(stringRequest);
     }
     public static native String stringFromJNI(String msg);
 
@@ -80,5 +147,46 @@ public class MainActivity extends AppCompatActivity {
     // Used to load the 'native-lib' library on application startup.
     static {
         System.loadLibrary("native-lib");
+    }
+
+
+
+    public class MsgAdapter extends ArrayAdapter{
+        private LayoutInflater inflater;
+        public ArrayList<MsgModel>msgModelList;
+        private int resource;
+        public MsgAdapter(Context context, int resource, ArrayList<MsgModel> msgModelList) {
+            super(context, resource, msgModelList);
+            this.msgModelList = msgModelList;
+            this.resource = resource;
+            inflater=(LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+
+        @Override
+        public int getCount() {
+            return msgModelList.size();
+        }
+
+        @Nullable
+        @Override
+        public Object getItem(int position) {
+            return msgModelList.get(position);
+        }
+
+        class ViewHolder{
+            TextView username;
+            TextView msg;
+            TextView date;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            ViewHolder viewHolder;
+            if(convertView==null){
+
+            }
+            return super.getView(position, convertView, parent);
+        }
     }
 }
