@@ -53,6 +53,7 @@
         android:layout_below="@+id/header"
         android:layout_above="@+id/footer"
         android:padding="5dp"
+        android:divider="@null"
         android:id="@+id/listView"
         >
     </ListView>

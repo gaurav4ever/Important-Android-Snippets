@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     String msg;
     ImageView sendImg;
     EditText itemTextView;
-    DatabaseHandler db = new DatabaseHandler(MainActivity.this);
+    DatabaseHandler db;
     ListView listView;
     MsgAdapter msgAdapter;
 
@@ -56,29 +56,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final TextView tv = (TextView) findViewById(R.id.result);
         sendImg=(ImageView) findViewById(R.id.sendmsg);
         listView=(ListView)findViewById(R.id.listView);
+
+        db= new DatabaseHandler(MainActivity.this);
 
         sendImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 itemTextView=(EditText)findViewById(R.id.text);
                 String msg=itemTextView.getText().toString();
-                tv.setText(msg);
+//                tv.setText(msg);
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date date = new Date();
                 String noteDate=df.format(date);
                 sendMessage(msg,noteDate);
-
             }
         });
-
-        ArrayList<MsgModel> msgModelList=db.viewMsg();
-        msgAdapter=new MsgAdapter(getApplicationContext(),R.layout.row_msg,msgModelList);
-        listView.setAdapter(msgAdapter);
-
-
+        makeList();
 //        msg=itemTextView.getText().toString();
 //        String s=stringFromJNI(msg);
 
@@ -92,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         db.addMsg(new MsgModel("gaurav","prem",msg,"key","e***"+msg,noteDate));
+                        makeList();
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -113,6 +109,11 @@ public class MainActivity extends AppCompatActivity {
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         stringRequest.setRetryPolicy(policy);
         requestQueue.add(stringRequest);
+    }
+    public void makeList(){
+        ArrayList<MsgModel> msgModelList=db.viewMsg();
+        msgAdapter=new MsgAdapter(getApplicationContext(),R.layout.row_msg,msgModelList);
+        listView.setAdapter(msgAdapter);
     }
     public static native String stringFromJNI(String msg);
 
@@ -184,9 +185,19 @@ public class MainActivity extends AppCompatActivity {
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             ViewHolder viewHolder;
             if(convertView==null){
-
+                convertView=inflater.inflate(R.layout.row_msg,null);
+                viewHolder =new ViewHolder();
+                viewHolder.username=(TextView)convertView.findViewById(R.id.by);
+                viewHolder.msg=(TextView)convertView.findViewById(R.id.msg);
+                viewHolder.date=(TextView)convertView.findViewById(R.id.date);
+                convertView.setTag(viewHolder);
+            }else{
+                viewHolder = (ViewHolder) convertView.getTag();
             }
-            return super.getView(position, convertView, parent);
+            viewHolder.username.setText(msgModelList.get(position).getFrom());
+            viewHolder.msg.setText(msgModelList.get(position).getOmsg());
+            viewHolder.date.setText(msgModelList.get(position).getDate());
+            return convertView;
         }
     }
 }
