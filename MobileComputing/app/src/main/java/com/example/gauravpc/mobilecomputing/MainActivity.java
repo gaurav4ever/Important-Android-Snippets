@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        final TextView tv = (TextView) findViewById(R.id.result);
         addItemImage=(ImageView)findViewById(R.id.add);
         addItemImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         msg=itemTextView.getText().toString();
                         bottomSheetDialog.dismiss();
+                        String s=stringFromJNI(msg);
+                        tv.setText(s);
                     }
                 });
                 bottomSheetDialog.setContentView(parentView);
@@ -48,9 +51,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        String s=stringFromJNI(msg);
-        TextView tv = (TextView) findViewById(R.id.result);
-        tv.setText(s);
+
     }
     public static native String stringFromJNI(String msg);
 
