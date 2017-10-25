@@ -32,12 +32,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         TextView tv = (TextView) findViewById(R.id.result);
-        itemTextView=(EditText)findViewById(R.id.text);
         sendImg=(ImageView) findViewById(R.id.sendmsg);
-        
-        msg=itemTextView.getText().toString();
-        String s=stringFromJNI(msg);
-        tv.setText(s);
+
+        sendImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                itemTextView=(EditText)findViewById(R.id.text);
+                String msg=itemTextView.getText().toString();
+                tv.setText(msg);
+            }
+        });
+
+//        msg=itemTextView.getText().toString();
+//        String s=stringFromJNI(msg);
+
     }
     public static native String stringFromJNI(String msg);
 
