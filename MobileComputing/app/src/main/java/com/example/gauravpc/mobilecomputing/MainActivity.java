@@ -1,7 +1,11 @@
 package com.example.gauravpc.mobilecomputing;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.support.design.widget.FloatingActionButton;
@@ -34,6 +39,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -52,12 +61,17 @@ public class MainActivity extends AppCompatActivity {
     DatabaseHandler db;
     ListView listView;
     MsgAdapter msgAdapter;
-
+    ImageView imageView;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        progressDialog = new ProgressDialog(MainActivity.this);
+        progressDialog.setMessage("Restoring data...");
+        progressDialog.setCancelable(false);
 
         sendImg=(ImageView) findViewById(R.id.sendmsg);
         listView=(ListView)findViewById(R.id.listView);
@@ -76,11 +90,64 @@ public class MainActivity extends AppCompatActivity {
                 sendMessage(msg,noteDate);
             }
         });
-        
+        imageView=(ImageView)findViewById(R.id.sync);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                syncData();
+            }
+        });
         makeList();
 //        msg=itemTextView.getText().toString();
 //        String s=stringFromJNI(msg);
 
+    }
+    public void syncData(){
+        progressDialog.show();
+        String url="https://buckupapp.herokuapp.com/mobile/allData";
+        RequestQueue requestQueue=new Volley().newRequestQueue(getApplicationContext());
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject=new JSONObject(response);
+
+                            JSONObject notesObject=jsonObject.getJSONObject("data");
+                            JSONArray msgArray = notesObject.getJSONArray("msg_data");
+                            DatabaseHandler db=new DatabaseHandler(getApplicationContext());
+                            SQLiteDatabase sql_db = db.getWritableDatabase();
+
+                            //insert values into msg table
+                            for(int i=0;i<msgArray.length();i++){
+                                JSONObject o = msgArray.getJSONObject(i);
+                                ContentValues contentValues=new ContentValues();
+                                contentValues.put("id",Integer.parseInt(o.getString("id")));
+                                contentValues.put("from_user",o.getString("from"));
+                                contentValues.put("to_user",o.getString("to"));
+                                contentValues.put("original_msg",o.getString("msg"));
+                                contentValues.put("encrpt_key",o.getString("ek"));
+                                contentValues.put("encrpt_msg",o.getString("emsg"));
+                                contentValues.put("date",o.getString("date"));
+                                // Inserting Row
+                                sql_db.insert("msg", null, contentValues);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        progressDialog.dismiss();
+                        makeList();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+            }
+        });
+        int socketTimeout = 10000;//30 seconds
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        stringRequest.setRetryPolicy(policy);
+        requestQueue.add(stringRequest);
     }
 
     public void sendMessage(final String msg,final String noteDate){
