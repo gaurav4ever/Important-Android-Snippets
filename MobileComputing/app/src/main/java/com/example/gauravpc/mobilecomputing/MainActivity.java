@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 sendMessage(msg,noteDate);
             }
         });
+        
         makeList();
 //        msg=itemTextView.getText().toString();
 //        String s=stringFromJNI(msg);
