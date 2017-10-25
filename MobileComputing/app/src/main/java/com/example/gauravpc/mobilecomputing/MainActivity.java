@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.show();
         String url="https://buckupapp.herokuapp.com/mobile/allData";
         RequestQueue requestQueue=new Volley().newRequestQueue(getApplicationContext());
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, url,
+        StringRequest stringRequest=new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
                             JSONObject notesObject=jsonObject.getJSONObject("data");
                             JSONArray msgArray = notesObject.getJSONArray("msg_data");
-                            
+
                             DatabaseHandler db=new DatabaseHandler(getApplicationContext());
                             SQLiteDatabase sql_db = db.getWritableDatabase();
 
