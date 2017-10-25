@@ -17,27 +17,32 @@
         android:orientation="vertical"
         tools:layout_editor_absoluteY="0dp"
         tools:layout_editor_absoluteX="8dp">
-        <RelativeLayout
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/mainHead"
-            >
-            <TextView
-                android:layout_width="wrap_content"
+            card_view:cardCornerRadius="0dp"
+            card_view:cardElevation="4dp"
+            card_view:cardBackgroundColor="@color/colorPrimary">
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_centerVertical="true"
-                android:textColor="#fff"
-                android:text="Messages"
-                android:textSize="18sp"/>
-            <ImageView
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:layout_alignParentEnd="true"
-                android:padding="15dp"
-                android:src="@drawable/add1"
-                android:id="@+id/add"/>
-        </RelativeLayout>
+                android:id="@+id/mainHead"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_centerVertical="true"
+                    android:textColor="#fff"
+                    android:text="Messages"
+                    android:padding="15dp"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
     </LinearLayout>
 
 
@@ -61,14 +66,15 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8">
+                android:layout_weight="0.8"
+                android:paddingLeft="5dp">
                 <android.support.v7.widget.CardView
                     xmlns:card_view="http://schemas.android.com/apk/res-auto"
                     xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     card_view:cardCornerRadius="20dp"
-                    card_view:cardElevation="3dp"
+                    card_view:cardElevation="0dp"
                     card_view:cardBackgroundColor="#fff"
                     android:id="@+id/addItemCard"
                     android:layout_alignParentLeft="true"
@@ -81,8 +87,8 @@
                             android:layout_height="wrap_content"
                             android:textColor="#df000000"
                             android:hint="Type Here ..."
-                            android:textColorHint="#df000000"
-                            android:padding="15dp"
+                            android:textColorHint="#89000000"
+                            android:padding="18dp"
                             android:id="@+id/text"
                             android:backgroundTint="#fff"
                             android:textSize="16sp"/>
@@ -91,17 +97,17 @@
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_height="55dp"
+                android:layout_height="60dp"
                 android:layout_weight="0.2">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     >
                     <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="58dp"
+                        android:layout_height="58dp"
                         android:id="@+id/sendmsg"
-                        android:src="@drawable/send"
+                        android:src="@drawable/send1"
                         android:layout_centerInParent="true"
                         />
                 </RelativeLayout>
