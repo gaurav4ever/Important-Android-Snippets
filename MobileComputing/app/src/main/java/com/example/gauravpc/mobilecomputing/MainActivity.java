@@ -103,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void syncData(){
+        final DatabaseHandler db=new DatabaseHandler(getApplicationContext());
+        db.truncateTable();
         progressDialog.show();
         String url="https://buckupapp.herokuapp.com/mobile/allData";
         RequestQueue requestQueue=new Volley().newRequestQueue(getApplicationContext());
@@ -116,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                             JSONObject notesObject=jsonObject.getJSONObject("data");
                             JSONArray msgArray = notesObject.getJSONArray("msg_data");
 
-                            DatabaseHandler db=new DatabaseHandler(getApplicationContext());
+
                             SQLiteDatabase sql_db = db.getWritableDatabase();
 
                             //insert values into msg table
@@ -158,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        db.addMsg(new MsgModel("gaurav","prem",msg,"key","e***"+msg,noteDate));
+                        db.addMsg(new MsgModel("prem","gaurav",msg,"key","e***"+msg,noteDate));
                         makeList();
                     }
                 }, new Response.ErrorListener() {
@@ -171,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params=new HashMap<String,String>();
-                params.put("user","gaurav");
+                params.put("user","prem");
                 params.put("msg",msg);
                 params.put("date",noteDate);
                 return params;
@@ -271,12 +273,7 @@ public class MainActivity extends AppCompatActivity {
             viewHolder.username.setText(msgModelList.get(position).getFrom());
             viewHolder.msg.setText(msgModelList.get(position).getOmsg());
             String date=parseDate(msgModelList.get(position).getDate());
-            DateFormat df = new SimpleDateFormat("dd/MM/yy hh:mm:ss a");
-            DateFormat df_time = new SimpleDateFormat("HH:mm:ss");
-            Date datee = new Date();
-            String noteDate=parseDate(df.format(datee));
-            String time=df_time.format(datee);
-            viewHolder.date.setText(date+" @"+time);
+            viewHolder.date.setText(date);
 
             viewHolder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -308,8 +305,11 @@ public class MainActivity extends AppCompatActivity {
         String day_now_ordinal=ordinal(cal.get(Calendar.DAY_OF_MONTH));
         String month_now = month_date.format(cal.getTime())+"";
         String year_now= String.valueOf(cal.get(Calendar.YEAR));
+        String hour_now= String.valueOf(cal.get(Calendar.HOUR));
+        String minute_now= String.valueOf(cal.get(Calendar.MINUTE));
+        String sec_now= String.valueOf(cal.get(Calendar.SECOND));
 
-        return day_now+""+day_now_ordinal+" "+month_now+" "+year_now;
+        return day_now+""+day_now_ordinal+" "+month_now+" "+year_now+" @"+hour_now+":"+minute_now+":"+sec_now;
     }
     public static String ordinal(int i) {
         String[] suffixes = new String[] { "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
