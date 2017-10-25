@@ -5,6 +5,7 @@ import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.CardView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -22,36 +23,21 @@ public class MainActivity extends AppCompatActivity {
 
     ImageView addItemImage;
     String msg;
+    ImageView sendImg;
+    EditText itemTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final TextView tv = (TextView) findViewById(R.id.result);
-        addItemImage=(ImageView)findViewById(R.id.add);
-        addItemImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final BottomSheetDialog bottomSheetDialog=new BottomSheetDialog(MainActivity.this);
-                View parentView=getLayoutInflater().inflate(R.layout.layout_additem_todo_bottom_sheet, null);
-                final EditText itemTextView=(EditText)parentView.findViewById(R.id.itemText);
-                CardView addItemCardView=(CardView)parentView.findViewById(R.id.addItemCard);
-                addItemCardView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        msg=itemTextView.getText().toString();
-                        bottomSheetDialog.dismiss();
-                        String s=stringFromJNI(msg);
-                        tv.setText(s);
-                    }
-                });
-                bottomSheetDialog.setContentView(parentView);
-                bottomSheetDialog.show();
-            }
-        });
-
-
+        TextView tv = (TextView) findViewById(R.id.result);
+        itemTextView=(EditText)findViewById(R.id.text);
+        sendImg=(ImageView) findViewById(R.id.sendmsg);
+        
+        msg=itemTextView.getText().toString();
+        String s=stringFromJNI(msg);
+        tv.setText(s);
     }
     public static native String stringFromJNI(String msg);
 

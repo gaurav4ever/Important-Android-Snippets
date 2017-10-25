@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main"
-    android:background="#efefef"
+    android:background="@drawable/back"
     tools:context="com.example.gauravpc.mobilecomputing.MainActivity">
 
     <LinearLayout
@@ -69,7 +69,7 @@
                     android:layout_height="wrap_content"
                     card_view:cardCornerRadius="20dp"
                     card_view:cardElevation="3dp"
-                    card_view:cardBackgroundColor="@color/colorPrimaryDark"
+                    card_view:cardBackgroundColor="#fff"
                     android:id="@+id/addItemCard"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true">
@@ -79,39 +79,32 @@
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="#fff"
+                            android:textColor="#df000000"
                             android:hint="Type Here ..."
-                            android:textColorHint="#fff"
+                            android:textColorHint="#df000000"
                             android:padding="15dp"
-                            android:id="@+id/title"
-                            android:backgroundTint="@color/colorPrimaryDark"
+                            android:id="@+id/text"
+                            android:backgroundTint="#fff"
                             android:textSize="16sp"/>
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:layout_weight="0.2">
-                <android.support.v7.widget.CardView
-                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    xmlns:android="http://schemas.android.com/apk/res/android"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    card_view:cardCornerRadius="20dp"
-                    card_view:cardElevation="3dp"
-                    card_view:cardBackgroundColor="@color/colorPrimaryDark"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true">
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            />
-                    </RelativeLayout>
-                </android.support.v7.widget.CardView>
+                    android:layout_height="match_parent"
+                    >
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/sendmsg"
+                        android:src="@drawable/send"
+                        android:layout_centerInParent="true"
+                        />
+                </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>
