@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView tv = (TextView) findViewById(R.id.result);
+        final TextView tv = (TextView) findViewById(R.id.result);
         sendImg=(ImageView) findViewById(R.id.sendmsg);
 
         sendImg.setOnClickListener(new View.OnClickListener() {
