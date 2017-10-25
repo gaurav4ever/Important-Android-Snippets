@@ -48,9 +48,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        String s=stringFromJNI(msg);
-        TextView tv = (TextView) findViewById(R.id.result);
-        tv.setText(s);
+//        String s=stringFromJNI(msg);
+//        TextView tv = (TextView) findViewById(R.id.result);
+//        tv.setText(s);
     }
     public native String stringFromJNI(String msg);
 
